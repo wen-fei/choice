@@ -1,0 +1,16 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.choice.dao.SchoolDao">
+    <!--目的:为dao接口方法提供sql语句配置
+    即针对dao接口中的方法编写我们的sql语句-->
+
+    <select id="getSchoolInfoById" resultType="School" parameterType="Integer">
+        SELECT *
+        FROM school,school_info,school_type,module
+        where school_id = #{schoolId}
+        and school_id = school_info_id
+        and school_type.school_type_id = school.school_type
+        and module.module_id = school.module_id
+    </select>
+</mapper>

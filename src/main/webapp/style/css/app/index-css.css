@@ -1,0 +1,126 @@
+div.img-size{
+    width:  300px;
+    height: 250px;
+}
+div.img-size > img{
+    width: 300px;
+    height: 250px;
+}
+.sizecontrol{
+    width: 300px;
+    height: 250px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+#chart ul{
+    height:40px;
+}
+.article-hot-list li{
+    background: url(../../imgs/app/lirt.jpg) 0 center no-repeat;
+    font-size: 13px;
+    line-height: 150%;
+    margin-bottom: 5px;
+    overflow: hidden;
+    padding-left: 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+}
+.article-url{
+    /*display: block;*/
+    display: inline-block;
+    width: 270px;
+}
+#chart {
+    background: #fff;
+    padding: 20px;
+    color: #888;
+    font-size: 14px;
+    /*margin: 10px 20px;*/
+    margin-top: 20px;
+    margin-left:35px;
+    margin-right:35px;
+}
+.cl{
+    zoom:1;
+}
+.chart li {
+    padding-left: 40px;
+    line-height: 40px;
+    float: left;
+    width: 160px;
+    background: url(../../imgs/app/base.png) no-repeat;
+    color: #888;
+}
+.chart li.t {
+    background-position: 0 6px;
+}
+.chart li.ye {
+    background-position: 0 -45px;
+}
+.chart li.p {
+    background-position: 0 -94px;
+}
+.chart li.m {
+    background-position: 0 -146px;
+}
+#chart .y {
+    margin-top: 12px;
+}
+.y {
+    float: right;
+}
+.mar{
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+.module .panel-header > a{
+    color: white;
+    text-decoration: none;
+    size: 1em;
+}
+/*模块列表*/
+.fl_tb {
+    width: 100%;
+}
+table {
+    empty-cells: show;
+    border-collapse: collapse;
+}
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+.fl_tb td {
+    padding: 10px 0;
+}
+.fl_g {
+    vertical-align: top;
+}
+.fl_icn_g {
+    float: left;
+    width: 31px;
+    display: none;
+}
+.fl_row td {
+    border-bottom: 1px dashed #DDD;
+}
+.fl_tb td {
+    padding: 10px 0;
+}
+.fl_g {
+    vertical-align: top;
+}
+.wp-index{
+    height: 250px;
+    margin-bottom: 10px;
+}
+.Hui-userbar > li{
+    float: right;
+}

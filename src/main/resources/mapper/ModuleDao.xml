@@ -1,0 +1,112 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.choice.dao.ModuleDao">
+    <!--目的:为dao接口方法提供sql语句配置
+    即针对dao接口中的方法编写我们的sql语句-->
+
+    <select id="queryArticleModuleList" resultType="Module">
+        SELECT *
+        from module
+        where module_belong_forum_id = #{forumId}
+    </select>
+
+    <select id="queryModuleById" resultType="Module">
+        select *
+        from module
+        where module_id = #{moduleId}
+    </select>
+
+    <update id="updateModuleById">
+      UPDATE
+      module
+      SET module_name = #{moduleName},
+          module_controller_id = #{moduleControllerId},
+          module_belong_forum_id = #{moduleBelongForumId}
+      WHERE module_id = #{moduleId}
+    </update>
+
+    <delete id="deleteModuleById">
+        DELETE
+        from module
+        where module_id = #{moduleId}
+    </delete>
+    
+    <select id="getModuleCounts" resultType="Integer">
+        select count(module_id)
+        from module
+        where module_belong_forum_id = #{forumId}
+    </select>
+
+    <select id="getArticleListByModuleID"  resultType="Article">
+        select *
+        from article
+        where article_module_id = #{moduleId}
+    </select>
+
+    <select id="getSchoolInfoByModuleId" resultType="School">
+        SELECT *
+        FROM school,school_info,school_type,module
+        where school_id = #{moduleId}
+              and school_id = school_info_id
+              and school_type.school_type_id = school.school_type
+              and module.module_id = school.school_id
+    </select>
+
+    <select id="getModuleInfo" resultType="Module">
+        SELECT *
+        FROM module,forum
+        where module.module_belong_forum_id = forum.forum_id
+    </select>
+
+
+    <select id="getArticlesHot" resultType="Article">
+        select *
+        from module,article,article_scores,article_type
+        where module_id = #{moduleId}
+        and isHot = 1
+              and module.module_id = article.article_module_id
+              and article.article_id = article_scores.article_scores_id
+              and article.article_type_id = article_type.article_type_id
+        ORDER BY article_scores.article_scores DESC, article_create_time desc
+
+    </select>
+
+    <select id="getArticlesJing" resultType="Article">
+        select *
+        from module,article,article_scores,article_type
+        where module_id = #{moduleId}
+        and isJing = 1
+              and module.module_id = article.article_module_id
+              and article.article_id = article_scores.article_scores_id
+              and article.article_type_id = article_type.article_type_id
+        ORDER BY article_scores.article_scores DESC, article_create_time desc
+
+    </select>
+
+    <select id="getArticlesTop" resultType="Article">
+        select *
+        from module,article,article_scores,article_type
+        where module_id = #{moduleId}
+        and isTop = 1
+        and module.module_id = article.article_module_id
+        and article.article_id = article_scores.article_scores_id
+        and article.article_type_id = article_type.article_type_id
+        ORDER BY article_scores.article_scores desc, article_create_time desc
+    </select>
+
+    <select id="getArticlesCommon"  resultType="Article">
+        select *
+        from article,article_scores
+        where article_module_id = #{moduleId}
+        and article.isTop=0
+        and article.article_id = article_scores.article_scores_id
+        ORDER BY article_scores.article_scores DESC, article_create_time desc
+
+    </select>
+
+    <select id="getModuleAll" resultType="Module">
+        select * from module
+    </select>
+
+</mapper>

@@ -1,0 +1,11 @@
+/*会员列表搜索框与下面拉开一点距离*/
+div#searchBottom{
+    padding-bottom: 20px;
+}
+.r{
+    float: right;
+    margin-right: 15px;
+}
+.navheight{
+    height: 30px;
+}

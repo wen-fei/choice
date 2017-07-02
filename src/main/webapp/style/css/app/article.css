@@ -1,0 +1,160 @@
+#pt .z {
+    padding-right: 10px;
+    z-index:99;
+    clear: left;
+}
+
+.z {
+    float: left;
+}
+
+#pt {
+    border: none;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    margin: 0 0 10px;
+}
+
+#pt {
+    border: none;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    margin: 0 0 10px;
+
+}
+
+#pt {
+    margin: 2px 0;
+    height: 29px;
+    border: none;
+    background: transparent;
+    line-height: 29px;
+}
+
+.bm {
+    border: 1px solid #CDCDCD;
+    background: #FFF;
+}
+
+.bm, .bn {
+    margin-bottom: 10px;
+}
+
+.cl {
+    zoom: 1;
+}
+
+.cl:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.bp {
+    background: #fff;
+    padding: 15px;
+    -webkit-box-shadow: 0 0 3px #ddd;
+    -moz-box-shadow: 0 0 3px #ddd;
+    box-shadow: 0 0 3px #ddd;
+    margin: 0 0 15px;
+}
+.select-box, .select-box.size-M{
+    width: auto!important;
+}
+
+.navbar-brand{
+    height: auto!important;
+}
+ul li, .xl li {
+    list-style: none;
+}
+body, input, button, select, textarea {
+    font: 12px/1.5 Tahoma,'Microsoft Yahei','Simsun';
+    color: #444;
+}
+.item  img{
+    width: 300px;
+}
+.article-url a{
+    overflow: hidden;
+}
+.article-url {
+    width:280px;
+}
+#hot_article{
+    margin-right:10px;
+}
+.Hui-userbar > li{
+    margin-right:20px;
+    float: right;
+}
+.Hui-userbar{
+    float: right;
+}
+#userLogin{
+    float: right;
+}
+.panel-heading a{
+    color:white;
+    font-size: 14px;
+}
+body, ul, ol, li, dl, dd, p, h1, h2, h3, h4, h5, h6, form, fieldset, .pr, .pc {
+    margin: 0;
+    padding: 0;
+}
+.fl_g dt {
+    font-size: 14px;
+    padding-top: 3px;
+}
+.ky_hot {
+    font-size: 10px;
+    color: red;
+}
+.xw0 {
+    font-weight: 400;
+}
+.xi1, .onerror {
+    color: #F26C4F;
+}
+.wp-index a{
+    color:#000000;
+}
+div.img-size{
+    width: 300px;
+}
+.sizecontrol{
+    width:300px;
+}
+ul.chart{
+    height:40px;
+}
+.wp-index span{
+    margin-top: 1px;
+    font-size: 16px;
+    float: right;
+}
+select {
+    background: transparent;
+    width: 200px;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    height: 34px;
+    -webkit-appearance: none; /*for chrome*/
+}
+#userLogin a{
+    color: #ffffff;
+}
+#name_set{
+    color:blue;
+}
+.pil dt, .pil dd{
+    font-size: 12px !important;
+}
+.hm span{
+    font-size: 12px;
+}

@@ -1,0 +1,32 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.choice.dao.ForumDao">
+    <!--目的:为dao接口方法提供sql语句配置
+    即针对dao接口中的方法编写我们的sql语句-->
+
+    <select id="queryForumList" resultType="Forum">
+        SELECT *
+        from forum
+    </select>
+
+    <update id="updateForumInfo">
+        update
+        forum
+        set forum_name = #{forumName},
+            forum_controller_id = #{forumControllerId}
+        where forum_id = #{forumId}
+    </update>
+
+    <delete id="deleteForum">
+        DELETE
+        FROM forum
+        WHERE forum_id = #{forumID}
+    </delete>
+
+    <select id="getForumInfo" resultType="Forum">
+        SELECT *
+        FROM forum
+        where forum_id = #{forumId}
+    </select>
+</mapper>

@@ -1,0 +1,108 @@
+/*高校联动美化*/
+.choose-box-wrapper{
+    width: 652px;
+    background-color:#000;
+    _filter:alpha(opacity=50);
+    _background-color: rgba(0, 0, 0,1);
+    padding:2px;
+    border-radius:5px;
+    display:none;
+}
+.choose-box{
+    border: 1px solid #005EAC;
+    width:650px;
+    background-color:white;
+}
+.choose-box-title{
+    background:#3777BC;
+    color: white;
+    padding: 4px 10px 5px;
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0;
+}
+.choose-box-title span{
+    font-family: Tahoma, Verdana, STHeiTi, simsun, sans-serif;
+}
+
+#choose-a-province, #choose-a-school{
+    margin:5px 8px 10px 8px;
+    border: 1px solid #C3C3C3;
+}
+.choose-a-province a{
+    display:inline-block;
+    height: 18px;
+    line-height: 18px;
+    color:#005EAC;
+    text-decoration: none;
+    font-size: 9pt;
+    font-family: Tahoma, Verdana, STHeiTi, simsun, sans-serif;
+    margin:2px 5px;
+    padding: 1px;
+    text-align: center;
+}
+.choose-a-province a:hover{
+    text-decoration:underline;
+    cursor:pointer;
+}
+.choose-a-province .choosen{
+    background-color: #005EAC;
+    color:white;
+}
+
+.choose-a-school{
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 200px;
+}
+.choose-a-school a{
+    height: 18px;
+    line-height: 18px;
+    color:#005EAC;
+    text-decoration: none;
+    font-size: 9pt;
+    font-family: Tahoma, Verdana, STHeiTi, simsun, sans-serif;
+    float: left;
+    width: 170px;
+    margin: 4px 0 4px 12px ;
+    padding-left:10px;
+    background:url(http://ww2.sinaimg.cn/large/005ItG0Rjw1er8sxnnnlpg3004004019.gif) no-repeat 0 9px;
+}
+.choose-a-school a:hover{
+    background-color:#005EAC;
+    color:white;
+    cursor:pointer;
+}
+
+.choose-box-bottom{
+    background: #F0F5F8;
+    padding: 8px;
+    text-align: right;
+    border-top: 1px solid #CCC;
+    height:40px;
+}
+.choose-box-bottom input{
+    vertical-align: middle;
+    text-align: center;
+    background-color:#005EAC;
+    color:white;
+    border-top: 1px solid #B8D4E8;
+    border-left: 1px solid #B8D4E8;
+    border-right: 1px solid #114680;
+    border-bottom: 1px solid #114680;
+    cursor: pointer;
+    width: 60px;
+    height: 25px;
+    margin-top: 6px;
+    margin-right: 6px;
+
+    }
+#user_info_detail{
+    margin-top: 30px;
+}
+#selectSchool{
+    margin-left: 15px;
+}
+#wantSchool{
+    margin-left: 15px;
+}

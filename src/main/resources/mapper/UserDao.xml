@@ -1,0 +1,110 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.choice.dao.UserDao">
+    <!--目的:为dao接口方法提供sql语句配置
+    即针对dao接口中的方法编写我们的sql语句-->
+
+    <select id="queryUserById" resultType="UserInfo" parameterType="Long">
+        SELECT *
+        FROM  user_info,user_type
+        where user_info_id = #{userId}
+        AND user_type.user_type_id = user_info.user_type
+    </select>
+
+    <select id="getUserCounts" resultType="Long">
+        select count(user_id)
+        from user
+    </select>
+
+    <select id="getUserList" resultType="UserInfo">
+        select *
+        from user_info,user_type
+        where user_info.user_type = user_type.user_type_id
+    </select>
+
+    <select id="getUserListByTime" resultType="UserInfo">
+        select * from user,user_info,user_type
+        where user_info.registerTime BETWEEN #{startTime} and #{endTime}
+        and user_info.user_type = user_type.user_type_id
+    </select>
+
+    <select id="getUserListBySchoolId" resultType="UserInfo">
+        select *
+        from user_info,user_type
+        where undergraduateSchoolID = #{schoolId}
+        and user_info.user_type = user_type.user_type_id
+    </select>
+
+    <select id="getUserListByWantSchoolId" resultType="UserInfo">
+        select *
+        from user_info,user_type
+        where wantSchoolID = #{schoolId}
+        and user_info.user_type = user_type.user_type_id
+    </select>
+
+    <select id="getUserListByExamYear" resultType="UserInfo">
+        select *
+        from user,user_info,user_type
+        where ExamYear = #{year}
+        and user_info.user_type = user_type.user_type_id
+    </select>
+
+    <select id="getUserListByArea" resultType="UserInfo">
+        select *
+        from user_info,user_type
+        where homeTown_province like concat(concat('%',#{home}),'%')
+        and user_info.user_type = user_type.user_type_id
+    </select>
+    
+    <select id="getLoginInfo" resultType="UserInfo">
+      select * from user_info,user_type
+      where user_name = #{userName} and password = #{password}
+      and user_info.user_type = user_type.user_type_id
+    </select>
+
+    <insert id="insertOne">
+       insert into user_info(user_name, password,registerTime,user_email)
+               values(#{userName,},#{pwd},#{registerTime},#{email})
+    </insert>
+
+    <select id="checkUser_name" resultType="UserInfo">
+        select user_name
+        from user_info
+        where user_name = #{userName}
+    </select>
+    <select id="getSchoolNo" resultType="School">
+        select school_id from school
+        where school_name = #{schoolKey}
+    </select>
+
+    <update id="updateUserInfo">
+        update user_info
+        set name = #{name},
+            user_email = #{user_email},
+            ExamYear = #{exam_year},
+            user_gender = #{user_gender},
+            wantschool = #{user_want_school},
+            bkschool = #{user_ben_school},
+            homeTown_province = #{user_home_province},
+            homeTown_city = #{user_home_city}
+        where user_info_id = #{user_info_id}
+    </update>
+
+    <insert id="insertToUserArticleRecords_click">
+      insert into user_article_records(uid, aid,click,time)
+              values(#{userId},#{articleId},1, #{time})
+    </insert>
+    <update id="setController">
+        <if test="type==1">
+            update forum
+            SET forum_controller_id = #{user_id}
+            where forum_id = #{forum_or_module_id}
+        </if>
+        <if test="type==2">
+            update module
+            SET module_controller_id = #{user_id}
+            where module_id = #{forum_or_module_id}
+        </if>
+    </update>
+</mapper>

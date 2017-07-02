@@ -1,0 +1,311 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.choice.dao.ArticleDao">
+    <!--目的:为dao接口方法提供sql语句配置
+    即针对dao接口中的方法编写我们的sql语句-->
+    <select id="queryById" resultType="Article" parameterType="long">
+        select *
+        from article, article_scores
+        where article_id = #{articleId}
+        and article.article_id = article_scores.article_scores_id
+    </select>
+
+    <delete id="deleteArticle" parameterType="long">
+        delete
+        from article
+        where article_id = #{articleId}
+    </delete>
+
+    <delete id="deleteArticleBatch">
+        DELETE
+        FROM article
+        WHERE article_id IN
+        <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
+            #{articleIds}
+        </foreach>
+
+    </delete>
+
+    <update id="setArticleStatusBatch" parameterType="long">
+        UPDATE
+        article
+        SET status = 1
+        WHERE article_id IN
+        <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+
+    </update>
+
+    <update id="setArticleStatus">
+        UPDATE
+        article
+        SET status = #{status}
+        WHERE article_id = #{articleId}
+
+    </update>
+
+    <select id="queryByArticleStatus" resultType="Article">
+        select *
+        from article
+        where status = #{status}
+    </select>
+
+    <select id="queryByArticleType" resultType="Article">
+        select *
+        from article
+        where article_type_id = #{articleTypeId}
+    </select>
+
+    <select id="queryByTime" resultType="Article">
+        select *
+        from article
+        where article_create_time BETWEEN #{startTime} and #{endTime}
+          <if test="isAll == 0">
+            <if test="typeId == 1">
+                AND article_forum_id = #{ID}
+            </if>
+            <if test="typeId == 2">
+                AND article_module_id = #{ID}
+            </if>
+          </if>
+        ORDER BY article_create_time
+    </select>
+    
+    <select id="articleCounts" resultType="Integer">
+        SELECT COUNT(article_id)
+        FROM article
+    </select>
+
+    <select id="queryByForum" resultType="Article">
+        select *
+        from article
+        where article_forum_id = #{forumId}
+    </select>
+
+    <select id="queryByModuleId" resultType="Article">
+        select *
+        from article,article_scores
+        where article_module_id = #{moduleId}
+        AND article.article_id = article_scores.article_scores_id
+        ORDER BY article.article_scores DESC
+    </select>
+
+    <select id="queryByReadNumbers" resultType="Article">
+        select *
+        from article
+        where article_read_number > #{number}
+    </select>
+    <select id="queryByReplyNumbers" resultType="Article">
+        select *
+        from article
+        where article_comment_number > #{number}
+    </select>
+
+    <select id="queryAll" resultType="Article">
+        select *
+        from article
+        ORDER BY article_create_time DESC
+        LIMIT #{offset},#{countLimit}
+    </select>
+    <!--TODO-->
+    <select id="queryByNeeds" resultType="Article">
+        select *
+        FROM article
+        WHERE article_create_time BETWEEN #{startTime} AND #{endTime}
+          <if test="requirement == 0">
+          </if>
+          <if test="requirement == 1">
+              <!--加精帖子-->
+            AND isJing = 1
+          </if>
+        <if test="requirement == 2">
+            <!--火帖子-->
+            AND isHot = 1
+        </if>
+        <if test="requirement == 3">
+            <!--置顶帖子-->
+            AND isTop = 1
+        </if>
+            AND article.article_title like concat(concat('%',#{titleKey}),'%')
+    </select>
+
+    <select id="queryArticleType" resultType="String">
+        SELECT article_type_name
+        FROM article_type
+        where article_type_id = #{articleTypeId}
+    </select>
+
+    <select id="queryArticleForumName" resultType="String">
+        select forum_name
+        from forum
+        where forum_id = #{forumId}
+    </select>
+
+    <select id="queryArticleModuleName" resultType="String">
+        select module_name
+        from module
+        where module_id = #{moduleID}
+    </select>
+
+    <select id="queryArticleAuthorInfo" resultType="UserInfo" parameterType="long">
+        SELECT name, user_type
+        from user_info
+        where user_info_id = #{articleAuthorId}
+    </select>
+    
+    <select id="queryArticleAuthorTypeName" resultType="String">
+        select user_type_name
+        from user_type
+        where user_type_id = #{userTypeId}
+    </select>
+
+    <select id="queryArticleStatus" resultType="String">
+        SELECT article_status_name
+        from article_status
+        where article_status_id = #{articleStatusId}
+    </select>
+
+    <!--TODO 需要整理到各自的DAO里面去-->
+    <select id="queryArticleForumList" resultType="Forum">
+        select *
+        from forum
+    </select>
+
+    <select id="queryArticleModuleList" resultType="Module">
+        select *
+        from module
+        where module_belong_forum_id = #{forumId}
+    </select>
+
+    <select id="queryArticleTypeList" resultType="ArticleType">
+        select *
+        from article_type
+    </select>
+
+    <update id="updateArticle" >
+        update
+        article
+        SET article_title = #{articleTitle},
+            article_type_id = #{article_type_id},
+            article_forum_id = #{article_forum_id},
+            article_module_id = #{article_forum_id}
+    </update>
+
+    <select id="getCountsInfo" resultType="Counts">
+        select count(article_id) as articleCounts,
+            sum(article_comment_number) as replyCounts,
+            sum(article_read_number) as readCounts
+        from article
+    </select>
+
+    <update id="updateArticleScores" >
+        UPDATE
+        article_scores
+        set article_scores = #{articleScores}
+        WHERE article_scores_id = #{articleId}
+    </update>
+
+    <insert id="insertOneArticle">
+        insert into article(article_title,article_content,article_authorID,article_forum_id,
+        article_module_id,article_create_time)
+        values(#{articleTitle},#{articleContent},#{articleAuthor},#{forumId},
+        #{moduleId},#{article_time})
+    </insert>
+
+    <update id="updateArticleClickCounts">
+        update article
+        set article_read_number = article_read_number +1
+        WHERE  article_id = #{articleId}
+    </update>
+
+    <update id="articleCollet">
+        <if test="type == 1">
+            insert into article_recommondadd(aid, uid, time)
+            values(#{aid}, #{uid}, #{time})
+        </if>
+        <if test="type == 2">
+            insert into article_recommondsub(aid, uid, time)
+            values(#{aid}, #{uid}, #{time})
+        </if>
+        <if test="type == 3">
+            insert into article_share(aid, uid, time)
+            values(#{aid}, #{uid}, #{time})
+        </if>
+        <if test="type == 4">
+            insert into article_collect(aid, uid, time)
+            values(#{aid}, #{uid}, #{time})
+        </if>
+
+    </update>
+
+    <select id="articleColletCheck" resultType="Article">
+        <if test="type == 4">
+            SELECT article.article_id
+            from article_collect, article
+            where article_collect.aid = article.article_id
+            and article_collect.aid = #{aid}
+            and article_collect.uid = #{uid}
+
+        </if>
+        <if test="type == 2">
+            SELECT article.article_id
+            from article_recommondsub, article
+            where article_recommondsub.aid = article.article_id
+            and article_recommondsub.aid = #{aid}
+            and article_recommondsub.uid = #{uid}
+
+        </if>
+        <if test="type == 1">
+            SELECT article.article_id
+            from article_recommondadd, article
+            where article_recommondadd.aid = article.article_id
+            and article_recommondadd.aid = #{aid}
+            and article_recommondadd.uid = #{uid}
+        </if>
+    </select>
+    <select id="getRecArticleIdList" resultType="Recommendations">
+        SELECT *
+        FROM article_recommend_for_user
+        ORDER BY score DESC
+        LIMIT 0,5
+
+    </select>
+    <select id="getRecAticleByModuleId" resultType="Article">
+      select *
+        from article, article_scores
+        where article.article_module_id = #{moduleId}
+        and article.article_id = article_scores.article_scores_id
+        order by article_scores.article_scores desc
+        LIMIT 0,5
+    </select>
+
+    <select id="getArticleListHotByScore" resultType="Article">
+        select *
+        from article, article_scores
+        where article.article_id = article_scores.article_scores_id
+        order by article_scores.article_scores desc, article.article_create_time DESC
+        LIMIT 0,7
+    </select>
+    <select id="getArticleListHotByRead" resultType="Article">
+        select *
+        from article, article_scores
+        where article.article_id = article_scores.article_scores_id
+            and article_create_time BETWEEN #{startTime} and #{endTime}
+        order by article.article_read_number desc, article.article_create_time DESC
+        LIMIT 0,7
+    </select>
+
+    <select id="getUrlByRowId" resultType="ArticleUrl">
+      select *
+      from urllist
+      where rowid = #{rowid}
+    </select>
+
+    <select id="getSearchResult" resultType="SearchRes">
+        select *
+        from search_result
+        ORDER BY score DESC
+    </select>
+</mapper>

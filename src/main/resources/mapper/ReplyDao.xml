@@ -1,0 +1,103 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.choice.dao.ReplyDao">
+    <!--目的:为dao接口方法提供sql语句配置
+    即针对dao接口中的方法编写我们的sql语句-->
+    <select id="getReplyById" resultType="Reply">
+        select *
+        from reply,user_info
+        where reply_id = #{replyId}
+        and  reply.reply_author_id = user.user_id
+    </select>
+
+    <insert id="insertOneReply">
+        INSERT
+        INTO reply (reply_content, reply_time, reply_author_id, reply_article_id)
+        VALUES (#{content},#{createTime},#{userId},#{articleId});
+    </insert>
+
+    <select id="getReplyListByArticleId" resultType="Reply">
+        select *
+        from reply,user_info
+        where reply_article_id = #{articleId}
+              and  reply.reply_author_id = user_info.user_info_id
+    </select>
+
+    <select id="getReplyList" resultType="Reply">
+        select *
+        from reply,user_info,article
+        where reply_author_id = user_info.user_info_id
+        and reply_article_id = article.article_id
+    </select>
+
+    <select id="getReplyListByUserId" resultType="Reply">
+        select *
+        from reply,user_info,article
+        where reply_article_id = #{userID}
+        and   reply_author_id = user_info.user_info_id
+        and reply_article_id = article.article_id
+    </select>
+
+    <select id="getReplyListByTime" resultType="Reply">
+        select *
+        from reply,article,user_info
+        where reply_time BETWEEN #{startTime} AND #{endTime}
+        and   reply_author_id = user_info.user_info_id
+        and   reply_article_id = article.article_id
+    </select>
+
+    <select id="getReplyListByModuleId" resultType="Reply">
+        select *
+        from reply,article,user_info
+        where article.article_module_id = #{moduleId}
+        and   reply_author_id = user_info.user_info_id
+        and   reply_article_id = article.article_id
+    </select>
+
+    <select id="getReplyListForumId" resultType="Reply">
+        select *
+        from reply,article,user_info
+        where article.article_forum_id = #{forumId}
+        and   reply_author_id = user_info.user_info_id
+        and   reply_article_id = article.article_id
+    </select>
+
+    <select id="getReplyByReplyId" resultType="Reply">
+        select *
+        from reply,article,user_info
+        where reply_id = #{replyId}
+        and   reply_author_id = user_info.user_info_id
+        and   reply_article_id = article.article_id
+    </select>
+
+    <select id="getReplyByReplyContent" resultType="Reply">
+        select *
+        from reply,article,user_info
+        where reply_content like concat(concat('%',#{contenKey}),'%')
+        and   reply_author_id = user_info.user_info_id
+        and   reply_article_id = article.article_id
+    </select>
+
+    <delete id="deleteOneReply">
+        DELETE  from reply
+        where reply_id = #{replyId}
+    </delete>
+
+    <delete id="deleteAllReplyByArticleId">
+        DELETE  from reply
+        where reply_article_id = #{articleId}
+    </delete>
+
+    <delete id="deleteAllReplyByUserId">
+        DELETE  from reply
+        where reply_author_id = #{userId}
+    </delete>
+
+    <delete id="deleteOneReplyBySelf">
+        delete from reply
+        where reply_author_id = #{userId}
+        and reply_id = #{replyId}
+    </delete>
+
+</mapper>
