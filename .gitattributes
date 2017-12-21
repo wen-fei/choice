@@ -1,4 +1,4 @@
-*.js linguist-language=python
-*.css linguist-language=python
-*.html linguist-language=python
-*.ipynb linguist-language=python
+*.js linguist-language=java
+*.css linguist-language=java
+*.html linguist-language=java
+*.ipynb linguist-language=java
